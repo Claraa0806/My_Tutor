@@ -1,18 +1,18 @@
 <?php
 
-if (isset($_POST['submit'])) {
+if (isset($_POST['login'])) {
     include 'dbconnect.php';
     $email = $_POST['email'];
     $pass = sha1($_POST['password']);
-    $sqllogin = "SELECT * FROM registration WHERE email = '$email' AND pass = '$password'";
+    $sqllogin = "SELECT * FROM registration WHERE email = '$email' AND password = '$pass'";
     $stmt = $conn->prepare($sqllogin);
     $stmt->execute();
     $number_of_rows = $stmt->fetchColumn();
-    
+
     if ($number_of_rows  > 0) {
         session_start();
         $_SESSION["sessionid"] = session_id();
-        $_SESSION["email"] = $email ;
+        $_SESSION["email"] = $email;
         echo "<script>alert('Login Success');</script>";
         echo "<script> window.location.replace('index.php')</script>";
     } else {
@@ -34,7 +34,7 @@ if (isset($_POST['submit'])) {
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="../js/script.js" defer></script>
 </head>
-<body onload="loadUser()">
+<body>
     <header class="w3-header w3-teal w3-center w3-padding-16">
         <h2>Welcome to MyTutor</h2>
     </header>
@@ -54,7 +54,7 @@ if (isset($_POST['submit'])) {
                     </p>
                     <p>
                         <label><b>Password</b></label>
-                        <input class="w3-input w3-round w3-border" type="password" name="password" id="pass" placeholder="Your password" required>
+                        <input class="w3-input w3-round w3-border" type="password" name="password" id="password" placeholder="Your password" required>
                     </p>
                     <p>
                         <input class="w3-check" name="showpass" type="checkbox" id="show" onclick="showPass()">
@@ -73,7 +73,7 @@ if (isset($_POST['submit'])) {
         </div>
     </div>
     <footer class="w3-container w3-teal w3-center w3-bottom">
-        <p>Not a member? <a href="register.html"> Register</a>.</p>
+        <p>Not a member? <a href="register.php"> Register</a>.</p>
     </footer>
 
 </body>
